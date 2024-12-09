@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO.Compression;
+using System.Threading;
+using Unity.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using static UnityEditor.Timeline.TimelinePlaybackControls;
@@ -21,6 +23,18 @@ public class Player1 : MonoBehaviour
     private bool isGrounded;
     private PunchAnimations fight;
 
+    public enum Combo {none, punch1, punch2, punch3, kick1, kick2};
+    private bool ResetTimer;
+    private float defualtComboTimer = 0.4f;
+    private float currentComobTimer;
+    private Combo CurrentCombo;
+
+    private void Start()
+    {
+        currentComobTimer = defualtComboTimer;
+        CurrentCombo = Combo.none;
+    }
+
     private void Awake()
     {
         forwardAction = actions.FindActionMap(player).FindAction("Walk");
@@ -38,6 +52,7 @@ public class Player1 : MonoBehaviour
     private void Update()
     {
         float forward = forwardAction.ReadValue<float>();
+        ResetComboState();
         if (forward != 0)
         {
             float newForward = forward * speed;
@@ -46,30 +61,83 @@ public class Player1 : MonoBehaviour
 
         animator.SetFloat("Walk", forward);
 
-       
+
         if (jumpAction.triggered && isGrounded)
         {
-            animator.SetTrigger("Jump"); 
-            isGrounded = false; 
+            animator.SetTrigger("Jump");
+            isGrounded = false;
         }
+
+        if (punch.triggered)
+        {
+            CurrentCombo++;
+            ResetTimer = true;
+            currentComobTimer = defualtComboTimer;
+
+            if (CurrentCombo == Combo.punch1)
+            {
+                animator.SetTrigger("Punch 1");
+            }
+
+            if (CurrentCombo == Combo.punch2)
+            {
+                animator.SetTrigger("Punch 2");
+            }
+
+            if (CurrentCombo == Combo.punch3)
+            {
+                animator.SetTrigger("Punch 3");
+            }
+        }
+
+        if (kick.triggered)
+        {
+            animator.SetTrigger("Kick 1");
+        }
+    }
+
+    private void ResetComboState()
+    {
+        if (ResetTimer)
+        {
+        currentComobTimer -= Time.deltaTime;
+
+            if (currentComobTimer < 0f)
+            {
+                CurrentCombo = Combo.none;
+
+                ResetTimer = false;
+                currentComobTimer = defualtComboTimer;
+            }
+        }
+    }
+
+    public void performJump()
+    {
+        rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
     }
 
     private void OnEnable()
     {
         forwardAction.Enable();
         jumpAction.Enable();
+        kick.Enable();
+        punch.Enable();
     }
 
     private void OnDisable()
     {
         forwardAction.Disable();
         jumpAction.Disable();
+        kick.Disable();
+        punch.Enable();
     }
 
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Ground"))
         {
+            print(isGrounded);
             isGrounded = true;
         }
     }

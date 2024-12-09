@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class PauseMenuManager : MonoBehaviour
 {
     private bool isPaused = false;
-    public GameObject menuUI;
+    public string pauseSceneName = "PauseScene"; // Name of the pause scene
 
     // Ensures time scale and audio states are reset when entering the scene
     private void Start()
@@ -16,31 +16,41 @@ public class PauseMenuManager : MonoBehaviour
         AudioListener.pause = false; // Ensure audio is not paused
     }
 
-    // Load a new scene
-    public void LoadScene(string sceneName)
+    private void Update()
     {
-        Time.timeScale = 1f; // Reset time scale before leaving
-        AudioListener.pause = false; // Ensure audio is not paused
-        SceneManager.LoadScene(sceneName);
+        // Check for "ESC" key press
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            TogglePauseContinue();
+        }
     }
 
-    // Pause the game
+    // Pause the game and open the pause scene
     public void PauseGame()
     {
-        Time.timeScale = 0f; // Stop game time
+        if (isPaused) return; // Prevent multiple pauses
+        Time.timeScale = 0f; // Stop game time (pauses everything using time)
         isPaused = true;     // Mark as paused
-        menuUI.SetActive(true); // Show pause menu UI
-
         AudioListener.pause = true; // Pause audio
+
+        // Load the pause scene additively
+        SceneManager.LoadScene(pauseSceneName, LoadSceneMode.Additive);
     }
 
-    // Resume the game
+    // Resume the game and close the pause scene
     public void ContinueGame()
     {
+        if (!isPaused) return; // Prevent unnecessary resumes
+
+        // Unload the pause scene if it's currently loaded
+        if (SceneManager.GetSceneByName(pauseSceneName).isLoaded)
+        {
+            SceneManager.UnloadSceneAsync(pauseSceneName);
+        }
+
+        // Resume the game state
         Time.timeScale = 1f; // Resume game time
         isPaused = false;    // Mark as unpaused
-        menuUI.SetActive(false); // Hide pause menu UI
-
         AudioListener.pause = false; // Resume audio
     }
 

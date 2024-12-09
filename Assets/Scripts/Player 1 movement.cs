@@ -7,6 +7,7 @@ using static UnityEditor.Timeline.TimelinePlaybackControls;
 
 public class Player1 : MonoBehaviour
 {
+    [SerializeField] private string player;
     [SerializeField] private InputActionAsset actions;
     [SerializeField] private Animator animator;
     [SerializeField] private float speed = 2f;
@@ -14,15 +15,19 @@ public class Player1 : MonoBehaviour
 
     private InputAction forwardAction;
     private InputAction jumpAction;
+    private InputAction punch;
+    private InputAction kick;
     private Rigidbody rb;
     private bool isGrounded;
+    private PunchAnimations fight;
 
     private void Awake()
     {
-        forwardAction = actions.FindActionMap("Player 1").FindAction("Walk");
-        jumpAction = actions.FindActionMap("Player 1").FindAction("Jump");
+        forwardAction = actions.FindActionMap(player).FindAction("Walk");
+        jumpAction = actions.FindActionMap(player).FindAction("Jump");
+        punch = actions.FindActionMap(player).FindAction("Punch");
+        kick = actions.FindActionMap(player).FindAction("Kick");
 
-        // Add a Rigidbody if not present
         rb = GetComponent<Rigidbody>();
         if (rb == null)
         {
@@ -44,9 +49,8 @@ public class Player1 : MonoBehaviour
        
         if (jumpAction.triggered && isGrounded)
         {
-            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-            isGrounded = false; 
             animator.SetTrigger("Jump"); 
+            isGrounded = false; 
         }
     }
 
@@ -64,7 +68,7 @@ public class Player1 : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.contacts[0].normal == Vector3.up)
+        if (collision.gameObject.CompareTag("Ground"))
         {
             isGrounded = true;
         }

@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - stainPrefab
+  - Ground
   layers:
   - Default
   - TransparentFX

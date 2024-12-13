@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO.Compression;
 using System.Threading;
 using Unity.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using static UnityEditor.Timeline.TimelinePlaybackControls;
@@ -17,30 +18,37 @@ public class Player1 : MonoBehaviour
 
     private InputAction forwardAction;
     private InputAction jumpAction;
-    private InputAction punch;
-    private InputAction kick;
+    private InputAction blockAction;
     private Rigidbody rb;
     private bool isGrounded;
-    private PunchAnimations fight;
-
-    public enum Combo {none, punch1, punch2, punch3, kick1, kick2};
-    private bool ResetTimer;
-    private float defualtComboTimer = 0.4f;
-    private float currentComobTimer;
-    private Combo CurrentCombo;
-
-    private void Start()
+    public bool GetIsGrunded()
     {
-        currentComobTimer = defualtComboTimer;
-        CurrentCombo = Combo.none;
+        return isGrounded;
+    }
+
+    [SerializeField] AttackScript attack;
+    [SerializeField] Detectionscript leftarm;
+    [SerializeField] Detectionscript rightarm;
+    [SerializeField] Detectionscript leftleg;
+    [SerializeField] Detectionscript rightleg;
+
+    private bool isBlocking;
+    public bool GetIsBlocking()
+    {
+        return isBlocking;
+    }
+
+    private bool isJumping;
+    public bool GetIsJumping()
+    {
+        return isJumping;
     }
 
     private void Awake()
     {
         forwardAction = actions.FindActionMap(player).FindAction("Walk");
         jumpAction = actions.FindActionMap(player).FindAction("Jump");
-        punch = actions.FindActionMap(player).FindAction("Punch");
-        kick = actions.FindActionMap(player).FindAction("Kick");
+        blockAction = actions.FindActionMap(player).FindAction("block");
 
         rb = GetComponent<Rigidbody>();
         if (rb == null)
@@ -52,62 +60,49 @@ public class Player1 : MonoBehaviour
     private void Update()
     {
         float forward = forwardAction.ReadValue<float>();
-        ResetComboState();
-        if (forward != 0)
+
+        if (attack.isAttacking == false && isBlocking == false)
         {
-            float newForward = forward * speed;
-            transform.position += (transform.forward * forward) * speed * Time.deltaTime;
-        }
+            
+             if (forward != 0)
+             {
+                float newForward = forward * speed;
+                transform.position += (transform.forward * forward) * speed * Time.deltaTime;
+             }
 
-        animator.SetFloat("Walk", forward);
-
-
-        if (jumpAction.triggered && isGrounded)
-        {
-            animator.SetTrigger("Jump");
-            isGrounded = false;
-        }
-
-        if (punch.triggered)
-        {
-            CurrentCombo++;
-            ResetTimer = true;
-            currentComobTimer = defualtComboTimer;
-
-            if (CurrentCombo == Combo.punch1)
+             animator.SetFloat("Walk", forward);
+            
+            if (jumpAction.triggered && isGrounded)
             {
-                animator.SetTrigger("Punch 1");
+                animator.SetTrigger("Jump");
+                isGrounded = false;
+                isJumping = true;
             }
-
-            if (CurrentCombo == Combo.punch2)
+            else
             {
-                animator.SetTrigger("Punch 2");
-            }
-
-            if (CurrentCombo == Combo.punch3)
-            {
-                animator.SetTrigger("Punch 3");
+                isJumping = false;
             }
         }
 
-        if (kick.triggered)
+        if (attack.isAttacking == false)
         {
-            animator.SetTrigger("Kick 1");
-        }
-    }
-
-    private void ResetComboState()
-    {
-        if (ResetTimer)
-        {
-        currentComobTimer -= Time.deltaTime;
-
-            if (currentComobTimer < 0f)
+            if (blockAction.IsPressed())
             {
-                CurrentCombo = Combo.none;
-
-                ResetTimer = false;
-                currentComobTimer = defualtComboTimer;
+                animator.SetBool("Block", true);
+                isBlocking = true;
+                leftarm.SetDamage(0.5f);
+                rightarm.SetDamage(0.5f);
+                leftleg.SetDamage(0.5f);
+                rightleg.SetDamage(0.5f);
+            }
+            else
+            {
+                animator.SetBool("Block", false);
+                isBlocking = false;
+                leftarm.SetDamage(2);
+                rightarm.SetDamage(2);
+                leftleg.SetDamage(2);
+                rightleg.SetDamage(2);
             }
         }
     }
@@ -121,23 +116,21 @@ public class Player1 : MonoBehaviour
     {
         forwardAction.Enable();
         jumpAction.Enable();
-        kick.Enable();
-        punch.Enable();
+        blockAction.Enable();
     }
 
     private void OnDisable()
     {
         forwardAction.Disable();
         jumpAction.Disable();
-        kick.Disable();
-        punch.Enable();
+        blockAction.Disable();
     }
 
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Ground"))
         {
-            print(isGrounded);
+            isJumping = false;
             isGrounded = true;
         }
     }

@@ -11,8 +11,17 @@ public class Health : MonoBehaviour
 
     [SerializeField] private Image Healthbar;
 
+    [SerializeField] private Top10 Highscore;
+    [SerializeField] private Pointscript Player1;
+    [SerializeField] private Pointscript Player2;
+
     private bool hasDied;
-    
+
+    public bool GetHasDied()
+    {
+        return hasDied;
+    }
+
     public void DealDamage(float damage)
     {
         if (hasDied)
@@ -31,7 +40,17 @@ public class Health : MonoBehaviour
 
     public void PlayDeath()
     {
+        hasDied = true;
         Player.SetTrigger("Knock out");
+
+        string player1Name = CustomeNameScript.Player1;
+        string player2Name = CustomeNameScript.Player2;
+
+        int player1Score = Player1.score;
+        int player2Score = Player2.score;
+
+        Highscore.UpdateHighScores(player1Name, player1Score, player2Name, player2Score);
+        
     }
 
     void KnockoutPayer()

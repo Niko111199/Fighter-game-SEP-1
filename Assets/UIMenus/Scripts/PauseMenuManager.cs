@@ -6,14 +6,22 @@ using UnityEngine.SceneManagement;
 public class PauseMenuManager : MonoBehaviour
 {
     private bool isPaused = false;
-    public string pauseSceneName = "PauseScene"; // Name of the pause scene
+    [SerializeField] private Timer time;
+    [SerializeField] private GameObject pauseUi;
+    [SerializeField] private Player1 player1;
+    [SerializeField] private Player1 player2;
+
 
     // Ensures time scale and audio states are reset when entering the scene
     private void Start()
     {
-        Time.timeScale = 1f; // Reset time scale to normal
         isPaused = false;    // Reset pause state
         AudioListener.pause = false; // Ensure audio is not paused
+    }
+
+    public void ChangetoScene(int changeToScene)
+    {
+        SceneManager.LoadScene(changeToScene);
     }
 
     private void Update()
@@ -29,12 +37,16 @@ public class PauseMenuManager : MonoBehaviour
     public void PauseGame()
     {
         if (isPaused) return; // Prevent multiple pauses
-        Time.timeScale = 0f; // Stop game time (pauses everything using time)
+        time.StopTimer(); // stops time
         isPaused = true;     // Mark as paused
         AudioListener.pause = true; // Pause audio
 
-        // Load the pause scene additively
-        SceneManager.LoadScene(pauseSceneName, LoadSceneMode.Additive);
+        // Open pause Menu
+        pauseUi.SetActive(true);
+
+        // pause player movenment
+        player1.enabled = false;
+        player2.enabled = false;
     }
 
     // Resume the game and close the pause scene
@@ -42,16 +54,19 @@ public class PauseMenuManager : MonoBehaviour
     {
         if (!isPaused) return; // Prevent unnecessary resumes
 
-        // Unload the pause scene if it's currently loaded
-        if (SceneManager.GetSceneByName(pauseSceneName).isLoaded)
-        {
-            SceneManager.UnloadSceneAsync(pauseSceneName);
-        }
+
 
         // Resume the game state
-        Time.timeScale = 1f; // Resume game time
+        time.startTimer();
         isPaused = false;    // Mark as unpaused
         AudioListener.pause = false; // Resume audio
+
+        //closes pause menu
+        pauseUi.SetActive(false);
+
+        //reenable movement
+        player1.enabled = true;
+        player2.enabled = true;
     }
 
     // Toggle pause and continue

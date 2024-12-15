@@ -50,15 +50,15 @@ public class Detectionscript : MonoBehaviour
         if (ishitting)
         {
             Vector3 hitVFX = hit[0].transform.position;
-            hitVFX.y += 1.3f;
+            hitVFX.y += 1f;
 
             if (hit[0].transform.forward.x > 0)
             {
-                hitVFX.x += 0.3f;
+                hitVFX.x -= 0.3f;
             }
             else if (hit[0].transform.forward.x < 0)
             {
-                hitVFX.x -= 0.3f;
+                hitVFX.x += 0.3f;
             }
 
             Instantiate(hit_VFX,hitVFX,Quaternion.identity);

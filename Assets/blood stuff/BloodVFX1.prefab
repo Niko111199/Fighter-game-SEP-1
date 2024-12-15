@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 6814515311950830496}
   - component: {fileID: 2115761266192573397}
   - component: {fileID: 2450034390940700087}
-  - component: {fileID: 4853485578320228714}
+  - component: {fileID: 3834720793450142129}
   m_Layer: 0
-  m_Name: BloodVFX
+  m_Name: BloodVFX1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -673,7 +673,7 @@ ParticleSystem:
     radiusThickness: 1
     donutRadius: 0.2
     m_Position: {x: 0, y: 0, z: 0}
-    m_Rotation: {x: 0.64275867, y: 283.3871, z: 177.51648}
+    m_Rotation: {x: 357.32812, y: 59.505188, z: 23.022684}
     m_Scale: {x: 1, y: 1, z: 1}
     placementMode: 0
     m_MeshMaterialIndex: 0
@@ -3857,11 +3857,11 @@ ParticleSystem:
     maxCollisionShapes: 256
     quality: 0
     voxelSize: 0.5
-    collisionMessages: 1
+    collisionMessages: 0
     collidesWithDynamic: 1
     interiorCollisions: 0
   TriggerModule:
-    enabled: 1
+    enabled: 0
     serializedVersion: 2
     inside: 1
     outside: 0
@@ -4891,7 +4891,7 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
---- !u!114 &4853485578320228714
+--- !u!114 &3834720793450142129
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4904,6 +4904,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   time: 2
+  FloorBlod:
+  - {fileID: 4673925165462087752, guid: 739cbbdb14b94824d8c56551e005ab1c, type: 3}
+  - {fileID: 7570043520757648633, guid: c9469027e5fa2fd49a1f21cd57cf5211, type: 3}
+  - {fileID: 5350124718892554714, guid: 234355089244f0d4da7b966eee0b4040, type: 3}
+  ground:
+    serializedVersion: 2
+    m_Bits: 8
+  ParticleSystem: {fileID: 2115761266192573397}
 --- !u!1 &3346107597065992615
 GameObject:
   m_ObjectHideFlags: 0

@@ -90,6 +90,30 @@ public class Top10 : MonoBehaviour
             Debug.Log("Name: " + score.name + " | Score: " + score.score);
         }
     }
+
+    public void ResetHighScores()
+    {
+        highScores.Clear();
+
+
+        for (int i = 0; i < MaxHighScores; i++)
+        {
+            PlayerPrefs.DeleteKey("HighScoreName" + i);
+            PlayerPrefs.DeleteKey("HighScore" + i);
+        }
+
+
+        PlayerPrefs.Save();
+
+        foreach (Transform child in scoreListParent)
+        {
+            Destroy(child.gameObject);
+        }
+
+        DisplayHighScores();
+
+        Debug.Log("High scores have been reset.");
+    }
 }
 
 [System.Serializable]

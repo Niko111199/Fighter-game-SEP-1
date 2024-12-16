@@ -3,6 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System;
 
 public class TextFade : MonoBehaviour
 {
@@ -10,9 +11,16 @@ public class TextFade : MonoBehaviour
     [SerializeField] private float fadeSpeed = 1f;
     [SerializeField] private int MenuScene;
 
+    public SoundManager soundManager;
+
     private void Start()
     {
+        soundManager = SoundManager.instance;
 
+        if (soundManager == null)
+        {
+            Console.WriteLine("Something bad happened");
+        }
         StartCoroutine(FadeText());
     }
 
@@ -20,6 +28,7 @@ public class TextFade : MonoBehaviour
     {
         if (Input.anyKeyDown)
         {
+            soundManager.PlayAudio(AudioType.SFX_01);
             SceneManager.LoadScene(MenuScene);
         }
     }

@@ -60,6 +60,7 @@ public class SoundManager : MonoBehaviour
         {
             Configure();
         }
+        DontDestroyOnLoad(instance);
     }
 
     private void OnDisable()
@@ -210,7 +211,7 @@ public class SoundManager : MonoBehaviour
         }
 
         AudioType conflictAudio = AudioType.None;
-        foreach (DictionaryEntry entry in m_JobTable.Values)
+        foreach (DictionaryEntry entry in m_JobTable)
         {
             AudioType audioType = (AudioType) entry.Key;
             AudioTrack audioTrackInUse = (AudioTrack) m_AudioTable[audioType];

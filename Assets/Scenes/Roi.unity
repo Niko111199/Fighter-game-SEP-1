@@ -792,7 +792,7 @@ MonoBehaviour:
   onValueChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_IsOn: 1
+  m_IsOn: 0
 --- !u!1 &417054959
 GameObject:
   m_ObjectHideFlags: 0
@@ -1085,7 +1085,7 @@ MonoBehaviour:
   _volumeParameter: MusicVolume
   _mixer: {fileID: 24100000, guid: 2a43a56cf660f224c90b819ee87e198c, type: 2}
   _slider: {fileID: 629617502}
-  _multiplier: 1
+  _multiplier: 20
   _toggle: {fileID: 1770128146}
 --- !u!114 &629617502
 MonoBehaviour:
@@ -2002,7 +2002,7 @@ MonoBehaviour:
   _volumeParameter: MasterVolume
   _mixer: {fileID: 24100000, guid: 2a43a56cf660f224c90b819ee87e198c, type: 2}
   _slider: {fileID: 1026736561}
-  _multiplier: 1
+  _multiplier: 20
   _toggle: {fileID: 1833152549}
 --- !u!114 &1026736561
 MonoBehaviour:
@@ -3009,7 +3009,7 @@ MonoBehaviour:
   onValueChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_IsOn: 1
+  m_IsOn: 0
 --- !u!1 &1833152547
 GameObject:
   m_ObjectHideFlags: 0
@@ -3095,7 +3095,7 @@ MonoBehaviour:
   onValueChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_IsOn: 1
+  m_IsOn: 0
 --- !u!1 &1860230949
 GameObject:
   m_ObjectHideFlags: 0
@@ -3433,7 +3433,7 @@ MonoBehaviour:
   _volumeParameter: SFXVolume
   _mixer: {fileID: 24100000, guid: 2a43a56cf660f224c90b819ee87e198c, type: 2}
   _slider: {fileID: 2003484863}
-  _multiplier: 1
+  _multiplier: 20
   _toggle: {fileID: 360300219}
 --- !u!114 &2003484863
 MonoBehaviour:

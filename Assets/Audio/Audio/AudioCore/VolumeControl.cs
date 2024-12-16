@@ -28,29 +28,50 @@ public class VolumeControl : MonoBehaviour
 
     private void Start()
     {
-        _slider.value = PlayerPrefs.GetFloat(_volumeParameter, _slider.value);
+        if (!PlayerPrefs.HasKey(_volumeParameter))
+        {
+            PlayerPrefs.SetFloat(_volumeParameter, 1f);
+        }
+
+        _slider.value = PlayerPrefs.GetFloat(_volumeParameter);
+        UpdateToggleState();
     }
 
     private void HandleSliderValueChanged(float value)
     {
-        _mixer.SetFloat(_volumeParameter, Mathf.Log10(value) * _multiplier);
-        _disableToggleEvent = true;
-        _toggle.isOn = _slider.value > _slider.minValue;
-        _disableToggleEvent = false;
+        float clampedValue = Mathf.Clamp(value, 0.0001f, 1);
+        _mixer.SetFloat(_volumeParameter, Mathf.Log10(clampedValue) * _multiplier);
+
+        if (!_disableToggleEvent)
+        {
+            UpdateToggleState();
+        }
     }
     private void HandleToggleValueChanged(bool enableSound)
     {
         if (_disableToggleEvent)
             return;
 
-        if (enableSound)
-            _slider.value = PlayerPrefs.GetFloat(_volumeParameter, _slider.value);
-        else
+        _disableToggleEvent = true;
+
+        if (!enableSound)
         {
-            PlayerPrefs.SetFloat( _volumeParameter, _slider.value);
-            _slider.value = _slider.minValue;
+            _slider.value = PlayerPrefs.GetFloat(_volumeParameter, _slider.value);
+            _mixer.SetFloat(_volumeParameter,  Mathf.Log10(_slider.value) * _multiplier);
         }
 
+        else
+        {
+            PlayerPrefs.SetFloat(_volumeParameter, _slider.value);
+            _slider.value = _slider.minValue;
+            _mixer.SetFloat(_volumeParameter, -80f);
+        }
 
+        _disableToggleEvent = false;
+    }
+
+    private void UpdateToggleState()
+    {
+        _toggle.isOn = !(_slider.value > _slider.minValue);
     }
 }

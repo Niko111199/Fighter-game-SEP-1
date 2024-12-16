@@ -62,8 +62,10 @@ public class Detectionscript : MonoBehaviour
             }
 
             Instantiate(hit_VFX,hitVFX,Quaternion.identity);
+            //Går ud fra det er her vi skal have vores hit sfx?
+
         }
-   }
+    }
 
     
 

@@ -36,11 +36,15 @@ public class VictoryScreen : MonoBehaviour
 
         if (player1Health.GetHasDied())
         {
-            winnerText.text = $"{CustomeNameScript.Player2} Wins!"; 
+            winnerText.text = $"{CustomeNameScript.Player2} Wins!";
         }
         else if (player2Health.GetHasDied())
         {
             winnerText.text = $"{CustomeNameScript.Player1} Wins!";
+        }
+        else if (player1Health.GetHasDied() && player2Health.GetHasDied())
+        {
+            winnerText.text = "Draw!";
         }
     }
 

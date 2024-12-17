@@ -2130,6 +2130,7 @@ GameObject:
   - component: {fileID: 422860383}
   - component: {fileID: 422860382}
   - component: {fileID: 422860381}
+  - component: {fileID: 422860384}
   m_Layer: 0
   m_Name: Options
   m_TagString: Untagged
@@ -2263,6 +2264,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 422860379}
   m_CullTransparentMesh: 1
+--- !u!114 &422860384
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 422860379}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc2e0bd07439bcd4f946d15ddafd1219, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &439305664
 GameObject:
   m_ObjectHideFlags: 0
@@ -2508,6 +2521,7 @@ GameObject:
   - component: {fileID: 470825785}
   - component: {fileID: 470825784}
   - component: {fileID: 470825783}
+  - component: {fileID: 470825786}
   m_Layer: 0
   m_Name: HighscoreButton
   m_TagString: Untagged
@@ -2641,6 +2655,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 470825781}
   m_CullTransparentMesh: 1
+--- !u!114 &470825786
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 470825781}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc2e0bd07439bcd4f946d15ddafd1219, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &514103780
 GameObject:
   m_ObjectHideFlags: 0
@@ -6003,6 +6029,7 @@ GameObject:
   - component: {fileID: 1293409251}
   - component: {fileID: 1293409250}
   - component: {fileID: 1293409249}
+  - component: {fileID: 1293409252}
   m_Layer: 0
   m_Name: Quit
   m_TagString: Untagged
@@ -6124,6 +6151,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1293409247}
   m_CullTransparentMesh: 1
+--- !u!114 &1293409252
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1293409247}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc2e0bd07439bcd4f946d15ddafd1219, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1304337509
 GameObject:
   m_ObjectHideFlags: 0
@@ -8111,6 +8150,7 @@ GameObject:
   - component: {fileID: 1955101675}
   - component: {fileID: 1955101674}
   - component: {fileID: 1955101677}
+  - component: {fileID: 1955101678}
   m_Layer: 0
   m_Name: Play
   m_TagString: Untagged
@@ -8260,6 +8300,18 @@ MonoBehaviour:
   Player2Name: {fileID: 0}
   player1UI: {fileID: 0}
   player2UI: {fileID: 0}
+--- !u!114 &1955101678
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1955101672}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc2e0bd07439bcd4f946d15ddafd1219, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1961201828
 GameObject:
   m_ObjectHideFlags: 0

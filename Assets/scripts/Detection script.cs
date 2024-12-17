@@ -8,7 +8,7 @@ public class Detectionscript : MonoBehaviour
 {
     public LayerMask colloisonLayer;
     [SerializeField] private float radius = 1f;
-    [SerializeField] private float damage = 2f;
+    [SerializeField] private float damage;
     [SerializeField] private Animator Enemy;
 
     public bool ishitting;

@@ -8110,6 +8110,7 @@ GameObject:
   - component: {fileID: 1955101676}
   - component: {fileID: 1955101675}
   - component: {fileID: 1955101674}
+  - component: {fileID: 1955101677}
   m_Layer: 0
   m_Name: Play
   m_TagString: Untagged
@@ -8193,7 +8194,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1955101677}
         m_TargetAssemblyTypeName: CustomeNameScript, Assembly-CSharp
         m_MethodName: SetStandardNames
         m_Mode: 1
@@ -8243,6 +8244,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1955101672}
   m_CullTransparentMesh: 1
+--- !u!114 &1955101677
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1955101672}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd81b5fc2f1b1d942b7e7bcaf4888531, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Player1Name: {fileID: 0}
+  Player2Name: {fileID: 0}
+  player1UI: {fileID: 0}
+  player2UI: {fileID: 0}
 --- !u!1 &1961201828
 GameObject:
   m_ObjectHideFlags: 0
